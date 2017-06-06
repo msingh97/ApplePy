@@ -29,6 +29,31 @@ def input_box(message, placeholder='', submit_button="Submit"):
                                                                                                          placeholder)
     return os.popen(query).read().strip()
 
+
+def select_from_list(*options):
+	"""Prompts the user to make a selection from a list with options specified as arguments."""
+	assert len(options) > 0, "Must specify at least one list option."
+	option_str = "{\"" + "\" , \"".join(options) + "\"}"
+	return os.popen("osascript -e 'choose from list {0}'".format(option_str)).read().strip()
+
+
+def file_selector():
+	"""Prompts the user to select a file from the device, and returns the file's path."""
+	path = os.popen("osascript -e 'choose file'").read().strip().split(":")
+	return ("/").join(path)[6:]
+
+
+def folder_selector():
+	"""Prompts the user to select a folder from the device, and returns the folder's path."""
+	path = os.popen("osascript -e 'choose folder'").read().strip().split(":")
+	return ("/").join(path)[6:]
+
+
+def application_selector():
+	"""Prompts the user to select an application installed on the device, and returns the name of the applicaiton."""
+	return os.popen("osascript -e 'choose application'").read().strip()
+
+
 _speech_voices = ["Alex", "Agnes", "Allison", "Ava", "Kathy", "Princess", "Samantha", "Susan", "Vicki", "Victoria,"
                   "Bruce", "Fred", "Junior", "Ralph", "Tom", "Albert", "Bad News", "Bahh", "Bells", "Cellos",
                   "Deranged", "Good News", "Hysterical", "Pipe Organ", "Trinoids", "Whisper", "Zarvox"]
@@ -65,3 +90,10 @@ def set_clipboard(s):
     """Sets the user's clipboard to string s."""
     assert isinstance(s, str), "Clipboard must be set to a string."
     os.popen("osascript -e 'set the clipboard to \"{0}\"'".format(s))
+
+
+def open_url(url):
+	os.popen("osascript -e 'open location \"{0}\"'".format(url))
+
+
+

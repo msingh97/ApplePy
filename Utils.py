@@ -11,15 +11,13 @@ def get_clipboard():
     return popen("osascript -e 'the clipboard'").read().strip()
 
 
-#TODO: FIX SET CLIPBOARD AND OPEN URL
+#TODO: FIX SET CLIPBOARD AND OPEN URL POPEN METHODS
 
 def set_clipboard(s):
     """Sets the user's clipboard to string s."""
     assert isinstance(s, str), "Clipboard must be set to a string."
-    os.popen("osascript -e 'set the clipboard to \"{0}\"'".format(s))
+    popen("osascript -e 'set the clipboard to \"{0}\"'".format(s))
 
 
 def open_url(url):
-    os.popen("osascript -e 'open location \"{0}\"'".format(url))
-
-def __is_valid_url(url)
+    popen("osascript -e 'open location \"{0}\"'".format(url))
